@@ -325,12 +325,10 @@
   }
 
   function submitToNetlify(formData) {
-    const encoded = new URLSearchParams(formData).toString();
-
     return fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encoded,
+      body: new URLSearchParams(formData).toString(),
     });
   }
 
