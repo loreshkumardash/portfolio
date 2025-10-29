@@ -1,6 +1,4 @@
 // ===== PORTFOLIO WEBSITE JAVASCRIPT =====
-// Modern, performant, and accessible JavaScript for portfolio functionality
-
 (function () {
   "use strict";
 
