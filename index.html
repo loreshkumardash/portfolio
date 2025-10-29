@@ -370,7 +370,11 @@
       </div>
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <form id="contactForm" class="contact-form glassmorphism p-4" data-aos="fade-up" data-aos-delay="200">
+          <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify
+            class="contact-form glassmorphism p-4" data-aos="fade-up" data-aos-delay="200">
+            <!-- Hidden input required for Netlify -->
+            <input type="hidden" name="form-name" value="contact">
+
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="name" class="form-label text-light">Full Name</label>
@@ -381,14 +385,17 @@
                 <input type="email" class="form-control custom-input" id="email" name="email" required>
               </div>
             </div>
+
             <div class="mb-3">
               <label for="subject" class="form-label text-light">Subject</label>
               <input type="text" class="form-control custom-input" id="subject" name="subject">
             </div>
+
             <div class="mb-4">
               <label for="message" class="form-label text-light">Message</label>
               <textarea class="form-control custom-input" id="message" name="message" rows="5" required></textarea>
             </div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-gradient">
                 <i class="fas fa-paper-plane me-2"></i>Send Message
