@@ -533,6 +533,20 @@
     init();
   }
 
+    // ===== INPUT RESTRICTIONS =====
+  document.addEventListener("input", function (e) {
+    const target = e.target;
+    if (target.classList.contains("preventnum")) {
+      target.value = target.value.replace(/[0-9]/g, "");
+    }
+    if (target.classList.contains("preventchar")) {
+      target.value = target.value.replace(/[^0-9+]/g, "");
+      if (target.value.length > 15) {
+        target.value = target.value.slice(0, 15);
+      }
+    }
+  });
+
   // ===== EXPOSE PUBLIC API =====
   window.Portfolio = {
     showNotification,
