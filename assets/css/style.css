@@ -170,7 +170,7 @@ body {
 
 /* ===== NAVIGATION ===== */
 .navbar {
-  padding: 15px 0;
+  padding: 12px 0;
   transition: var(--transition);
 }
 
@@ -240,9 +240,13 @@ body {
   position: relative;
   z-index: 2;
 }
+.hero-buttons {
+  justify-content: center;
+}
 
 .hero-buttons .btn {
-  margin: 5px;
+  flex: 1 1 auto;
+  min-width: 180px;
 }
 
 .typing-animation {
@@ -609,11 +613,12 @@ footer {
 
 /* ===== BACK TO TOP BUTTON ===== */
 .back-to-top {
+  --size: 45px;
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 50px;
-  height: 55px;
+  width: var(--size);
+  height: var(--size);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -623,6 +628,13 @@ footer {
   transition: var(--transition);
   z-index: 1000;
   border: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.back-to-top i {
+  font-size: 18px;
+  line-height: 1;
 }
 
 .back-to-top.show {
