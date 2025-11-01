@@ -501,6 +501,7 @@
     initTypingAnimation();
     initAccessibility();
     attachEventListeners();
+    initCustomCursor();
 
     // Initialize AOS (Animate On Scroll) if available
     if (typeof AOS !== "undefined") {
@@ -533,7 +534,7 @@
     init();
   }
 
-    // ===== INPUT RESTRICTIONS =====
+  // ===== INPUT RESTRICTIONS =====
   document.addEventListener("input", function (e) {
     const target = e.target;
     if (target.classList.contains("preventnum")) {
@@ -553,4 +554,108 @@
     scrollToTop,
     updateActiveNavLink,
   };
+
+  // ===== CUSTOM CURSOR EFFECT =====
+  function initCustomCursor() {
+    // Only run on desktop devices
+    if (window.innerWidth < 768) return;
+
+    const cursor = document.querySelector(".custom-cursor");
+    const cursorDot = document.querySelector(".custom-cursor-dot");
+
+    if (!cursor || !cursorDot) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let dotX = 0;
+    let dotY = 0;
+
+    // Track mouse position
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Create trail effect
+      createTrail(e.clientX, e.clientY);
+    });
+
+    // Smooth cursor animation
+    function animateCursor() {
+      // Lag effect for cursor ring
+      cursorX += (mouseX - cursorX) * 0.15;
+      cursorY += (mouseY - cursorY) * 0.15;
+
+      // Faster follow for dot
+      dotX += (mouseX - dotX) * 0.25;
+      dotY += (mouseY - dotY) * 0.25;
+
+      cursor.style.left = cursorX + "px";
+      cursor.style.top = cursorY + "px";
+
+      cursorDot.style.left = dotX + "px";
+      cursorDot.style.top = dotY + "px";
+
+      requestAnimationFrame(animateCursor);
+    }
+
+    animateCursor();
+
+    // Trail effect with throttle
+    let lastTrailTime = 0;
+    const trailDelay = 30; // milliseconds between trail dots
+
+    function createTrail(x, y) {
+      const now = Date.now();
+      if (now - lastTrailTime < trailDelay) return;
+      lastTrailTime = now;
+
+      const trail = document.createElement("div");
+      trail.className = "cursor-trail";
+      trail.style.left = x + "px";
+      trail.style.top = y + "px";
+
+      document.body.appendChild(trail);
+
+      // Remove trail element after animation
+      setTimeout(() => {
+        trail.remove();
+      }, 600);
+    }
+
+    // Hover effects for interactive elements
+    const hoverElements = document.querySelectorAll(
+      "a, button, .btn, .nav-link, .social-link, .project-card, .skill-item, input, textarea"
+    );
+
+    hoverElements.forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.classList.add("hover");
+      });
+
+      el.addEventListener("mouseleave", () => {
+        cursor.classList.remove("hover");
+      });
+
+      el.addEventListener("mousedown", () => {
+        cursor.classList.add("click");
+      });
+
+      el.addEventListener("mouseup", () => {
+        cursor.classList.remove("click");
+      });
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener("mouseleave", () => {
+      cursor.style.opacity = "0";
+      cursorDot.style.opacity = "0";
+    });
+
+    document.addEventListener("mouseenter", () => {
+      cursor.style.opacity = "1";
+      cursorDot.style.opacity = "1";
+    });
+  }
 })();

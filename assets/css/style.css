@@ -826,3 +826,94 @@ footer {
     border: 1px solid #ccc !important;
   }
 }
+
+/* ===== CUSTOM CURSOR EFFECTS ===== */
+.custom-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(102, 126, 234, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.15s ease;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.1s ease;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+/* Cursor hover states */
+.custom-cursor.hover {
+  width: 50px;
+  height: 50px;
+  background: rgba(102, 126, 234, 0.1);
+  border-color: rgba(102, 126, 234, 1);
+}
+
+.custom-cursor.click {
+  width: 15px;
+  height: 15px;
+  border-color: rgba(247, 77, 108, 1);
+}
+
+/* Cursor trail effect */
+.cursor-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  animation: trailFade 0.6s ease-out forwards;
+  box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
+}
+
+@keyframes trailFade {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
+
+  a,
+  button,
+  .btn,
+  .nav-link,
+  .social-link,
+  .project-card {
+    cursor: none !important;
+  }
+}
+
+/* Show default cursor on mobile/tablet */
+@media (max-width: 767px) {
+  .custom-cursor,
+  .custom-cursor-dot,
+  .cursor-trail {
+    display: none !important;
+  }
+}
